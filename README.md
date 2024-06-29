@@ -47,13 +47,17 @@ git clone <repository-url>
 
 # Frontend
 
+```sh
 cd frontend
 npm install
+```
 
 # Backend
 
+```sh
 cd ../backend
 npm install
+```
 
 3. Set up environment variables:
 
@@ -64,12 +68,18 @@ JWT_SECRET=<your_jwt_secret>
 ### Running the Application
 
 1. Start the backend server:
+
+```sh
    cd backend
    npm start
+```
 
 2. In a new terminal, start the frontend application:
+
+```sh
    cd frontend
    npm run dev
+```
 
 The frontend should now be running on http://localhost:3000, and the backend on http://localhost:5000.
 
