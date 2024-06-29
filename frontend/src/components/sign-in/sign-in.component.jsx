@@ -14,7 +14,7 @@ function SingIn() {
     e.preventDefault();
 
     document.querySelector(".sign-in-loading").style.display = "block";
-
+    fetch("https://jwt-auth-with-bcrypt-by-isuru.onrender.com");
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
 
