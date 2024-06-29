@@ -44,9 +44,8 @@ module.exports.signIn = async (req, res) => {
 
 module.exports.getHome = async (req, res) => {
     try {
-        console.log('req.userId', req.userId);
         const user = await User.findById(req.userId);
-        res.json({ username: user.username });
+        res.json({ username: user.displayName });
     } catch (err) {
         res.status(500).send('Error fetching homepage');
     }
