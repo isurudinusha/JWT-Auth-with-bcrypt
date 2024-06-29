@@ -61,6 +61,7 @@ function SingIn() {
   return (
     <>
       <div className="sign-in-container">
+        <h1>Sign In</h1>
         <div className="sign-in-form">
           <form onSubmit={handleSubmit}>
             <div className="form-group">

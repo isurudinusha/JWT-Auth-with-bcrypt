@@ -35,6 +35,7 @@ function SignUp() {
 
   return (
     <div className="sign-up-container">
+      <h2>Sign Up</h2>
       <div className="sign-up-form">
         <form className="form-group">
           <label htmlFor="displayName">Display Name</label>
