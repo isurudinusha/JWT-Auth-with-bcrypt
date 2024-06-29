@@ -71,7 +71,7 @@ JWT_SECRET=<your_jwt_secret>
 
 ```sh
    cd backend
-   npm start
+   node server.js
 ```
 
 2. In a new terminal, start the frontend application:
