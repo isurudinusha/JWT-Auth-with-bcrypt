@@ -4,3 +4,23 @@
   justify-content: space-around;
   gap: 200px;
 }
+
+.title {
+  display: block;
+  text-align: center;
+  margin-bottom: 100px;
+  font-size: 30px;
+  color: var(--text-color);
+}
+
+.title a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.title a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
