@@ -5,6 +5,9 @@ const router = Router();
 
 router.post('/sign-up', createUser);
 router.post('/sign-in', signIn);
+router.get('/', (req, res) => {
+    res.send('API service is running!');
+});
 router.get('/sign-in', verifyToken, getHome);
 
 
