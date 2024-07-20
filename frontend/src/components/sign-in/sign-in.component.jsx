@@ -1,35 +1,31 @@
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import axios from "../../axios";
 import "./sign-in.styles.css";
 
-function SingIn() {
+const SignIn = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
 
   const [token, setToken] = useState("");
   const [name, setUsername] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    document.querySelector(".sign-in-loading").style.display = "block";
-    fetch("https://jwt-auth-with-bcrypt-by-isuru.onrender.com");
+    setIsLoading(true);
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
 
     try {
-      const response = await axios.post("/sign-in", {
-        username,
-        password,
-      });
+      const response = await axios.post("/sign-in", { username, password });
       console.log(response.data);
       setToken(response.data);
     } catch (error) {
       console.log(error);
-      setError(error.response.data.message);
+      setError(error.response?.data?.message || "An error occurred");
       setUsername("");
-      document.querySelector(".sign-in-loading").style.display = "none";
+      setIsLoading(false);
     }
   };
 
@@ -42,50 +38,51 @@ function SingIn() {
   const showUser = async () => {
     try {
       const response = await axios.get("/sign-in", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       console.log(response.data);
       setUsername(response.data.username);
       setError("");
-      document.querySelector(".sign-in-loading").style.display = "none";
     } catch (error) {
       console.log(error);
       setUsername("");
-      setError(error.response.data.message);
-      document.querySelector(".sign-in-loading").style.display = "none";
+      setError(error.response?.data?.message || "An error occurred");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="sign-in-container">
-        <h1>Sign In</h1>
-        <div className="sign-in-form">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input type="text" id="username" ref={usernameRef} required />
-              <label htmlFor="password">Password</label>
-              <input type="password" id="password" ref={passwordRef} required />
-              <button type="submit">Sign In</button>
-
-              {name ? (
-                <div className="home">
-                  <h1>Welcome {name}</h1>
-                </div>
-              ) : null}
-              {error ? <div className="error">Error: {error}</div> : null}
-            </div>
-          </form>
-          <div className="sign-in-loading">
-            <span>Loading...</span>
-          </div>
+    <div className="auth-container">
+      <form onSubmit={handleSubmit} className="auth-form">
+        <h1 className="auth-title">Sign In</h1>
+        <div className="form-group">
+          <input
+            type="text"
+            id="username"
+            ref={usernameRef}
+            required
+            placeholder="Username"
+          />
         </div>
-      </div>
-    </>
+        <div className="form-group">
+          <input
+            type="password"
+            id="password"
+            ref={passwordRef}
+            required
+            placeholder="Password"
+          />
+        </div>
+        <button type="submit" className="auth-button" disabled={isLoading}>
+          {isLoading ? "Signing In..." : "Sign In"}
+        </button>
+        {name && <div className="auth-message success">Welcome, {name}!</div>}
+        {error && <div className="auth-message error">{error}</div>}
+      </form>
+      {isLoading && <div className="auth-loading"></div>}
+    </div>
   );
-}
+};
 
-export default SingIn;
+export default SignIn;
